@@ -11,12 +11,12 @@ from typing import List, Dict
 def train_model(dataset_path: str,
                 img_name: str,
                 gt_name: str,
-                label_values: List,
+                LABEL_VALUES: List,
                 hyperparams: Dict,
                 sample_percentage: float = 0.5,
                 weights_path=None):
 
-    img, gt, LABEL_VALUES, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, label_values)
+    img, gt, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, LABEL_VALUES)
     hyperparams['patch_size'] = 7
     hyperparams['batch_size'] = 40
     hyperparams['learning_rate'] = 0.01

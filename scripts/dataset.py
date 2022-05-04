@@ -1,17 +1,30 @@
 import scipy.io as io
 import numpy as np
 import seaborn as sns
-from typing import List
 
+def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: list) -> tuple[np.array, np.array, list, dict]:
+    """
+    return data from .mat files in tuple
 
-def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: List) -> tuple:
-    """ return data from .mat files in tuple
+    Parameters
+    ----------
+    dataset_path: str
+        path to directory of dataset
+    img_name: str
+        name of hyperspectral image
+    gt_name: str
+        name of mask image
+    label_values: list
+        names of classes in hyperspectral image
 
-    :param dataset_path: path to directory of dataset
-    :param img_name: name of hyperspectral image
-    :param gt_name: name of mask image
-    :param label_values: list of name of classes in hyperspectral image
-    :return:
+    Returns
+    ----------
+    img : np.array
+        hyperspectral image
+    gt : np.array
+        mask of hyperspectral image
+    pallete : dict
+        pallete for colorizing  predicted image
     """
     img = io.loadmat(f'{dataset_path}/{img_name}')['image']
     gt = io.loadmat(f'{dataset_path}/{gt_name}')["img"]
@@ -21,4 +34,4 @@ def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: Li
     palette = {0: (0, 0, 0)}
     for k, color in enumerate(sns.color_palette("hls", len(label_values) - 1)):
         palette[k + 1] = tuple(np.asarray(255 * np.array(color), dtype="uint8"))
-    return img, gt, label_values, ignored_labels, palette
+    return img, gt, ignored_labels, palette
