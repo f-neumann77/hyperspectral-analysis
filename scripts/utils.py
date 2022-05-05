@@ -96,6 +96,7 @@ def grouper(n, iterable):
         if not chunk:
             return
         yield chunk
+
 def sample_gt(gt, train_size, mode='random'):
     """Extract a fixed percentage of samples from an array of labels.
 
