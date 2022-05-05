@@ -27,7 +27,10 @@ def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: li
         pallete for colorizing  predicted image
     """
     img = io.loadmat(f'{dataset_path}/{img_name}')['image']
-    gt = io.loadmat(f'{dataset_path}/{gt_name}')["img"]
+    if gt_name:
+        gt = io.loadmat(f'{dataset_path}/{gt_name}')["img"]
+    else:
+        gt = None
     ignored_labels = [0]
     img = np.asarray(img, dtype="float32")
     img = (img - np.min(img)) / (np.max(img) - np.min(img))

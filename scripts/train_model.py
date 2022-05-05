@@ -2,11 +2,19 @@ from scripts.HyperX import HyperX
 from scripts.dataset import get_dataset
 from scripts.newModel import get_model, train
 from scripts.utils import sample_gt
-
+import numpy as np
 import torch
 import torch.utils.data as data
 
 #from typing import List, Dict
+
+def create_loader(img: np.array,
+                  gt: np.array,
+                  hyperparams: dict,
+                  shuffle: bool = False):
+    dataset = HyperX(img, gt, **hyperparams)
+    return data.DataLoader(dataset, batch_size=hyperparams["batch_size"], shuffle=shuffle)
+
 
 def train_model(dataset_path: str,
                 img_name: str,
@@ -33,19 +41,9 @@ def train_model(dataset_path: str,
     train_gt, val_gt = sample_gt(train_gt, 0.95, mode="random")
 
     # Generate the dataset
-    train_dataset = HyperX(img, train_gt, **hyperparams)
+    train_loader = create_loader(img, train_gt, hyperparams, shuffle=True)
 
-    train_loader = data.DataLoader(
-        train_dataset,
-        batch_size=hyperparams["batch_size"],
-        shuffle=True,
-    )
-
-    val_dataset = HyperX(img, val_gt, **hyperparams)
-    val_loader = data.DataLoader(
-        val_dataset,
-        batch_size=hyperparams["batch_size"],
-    )
+    val_loader = create_loader(img, val_gt, hyperparams)
 
     train(
         model,

@@ -5,11 +5,12 @@ import torch
 import numpy as np
 
 def test_model(dataset_path: str,
-               img_name: str,
-               gt_name: str,
                LABEL_VALUES: list,
                hyperparams: dict,
-               weights_path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+               weights_path: str,
+               img_name: str,
+               gt_name: str=None,
+               ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 
     img, gt, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, LABEL_VALUES)
     hyperparams['patch_size'] = 7
@@ -26,10 +27,6 @@ def test_model(dataset_path: str,
 
     probabilities = test(model, img, hyperparams)
     prediction = np.argmax(probabilities, axis=-1)
-
-    mask = np.zeros(gt.shape, dtype="bool")
-    for l in IGNORED_LABELS:
-        mask[gt == l] = True
 
     color_prediction = convert_to_color_(prediction, palette)
 
