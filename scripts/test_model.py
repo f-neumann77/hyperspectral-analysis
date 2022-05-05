@@ -3,16 +3,15 @@ from scripts.newModel import get_model, test
 from scripts.utils import convert_to_color_
 import torch
 import numpy as np
-from typing import List, Dict, Tuple
 
 def test_model(dataset_path: str,
                img_name: str,
                gt_name: str,
-               label_values: List,
-               hyperparams: Dict,
-               weights_path: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+               LABEL_VALUES: list,
+               hyperparams: dict,
+               weights_path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 
-    img, gt, LABEL_VALUES, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, label_values)
+    img, gt, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, LABEL_VALUES)
     hyperparams['patch_size'] = 7
     hyperparams['batch_size'] = 40
     hyperparams['n_classes'] = len(LABEL_VALUES)

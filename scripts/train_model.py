@@ -6,13 +6,13 @@ from scripts.utils import sample_gt
 import torch
 import torch.utils.data as data
 
-from typing import List, Dict
+#from typing import List, Dict
 
 def train_model(dataset_path: str,
                 img_name: str,
                 gt_name: str,
-                LABEL_VALUES: List,
-                hyperparams: Dict,
+                LABEL_VALUES: list,
+                hyperparams: dict,
                 sample_percentage: float = 0.5,
                 weights_path=None):
 
