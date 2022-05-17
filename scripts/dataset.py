@@ -1,6 +1,7 @@
 import scipy.io as io
 import numpy as np
 import seaborn as sns
+from  HSI import HSImage
 
 def get_dataset(dataset_path: str, img_name: str, gt_name: str) -> tuple[np.array, np.array, list, list, dict]:
     """
@@ -26,8 +27,10 @@ def get_dataset(dataset_path: str, img_name: str, gt_name: str) -> tuple[np.arra
     pallete : dict
         pallete for colorizing  predicted image
     """
+
     img = io.loadmat(f'{dataset_path}/{img_name}')['image']
     label_values = io.loadmat(f'{dataset_path}/{img_name}')['labels']
+
     if gt_name:
         gt = io.loadmat(f'{dataset_path}/{gt_name}')["mask"]
     else:
