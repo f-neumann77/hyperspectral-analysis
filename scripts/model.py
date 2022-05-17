@@ -351,7 +351,7 @@ def test(net, img, hyperparams):
     iterations = count_sliding_window(img, **kwargs) // batch_size
     for batch in tqdm(
         grouper(batch_size, sliding_window(img, **kwargs)),
-        total=(iterations),
+        total=iterations,
         desc="Inference on the image",
     ):
         with torch.no_grad():

@@ -2,7 +2,7 @@ import scipy.io as io
 import numpy as np
 import seaborn as sns
 
-def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: list) -> tuple[np.array, np.array, list, dict]:
+def get_dataset(dataset_path: str, img_name: str, gt_name: str) -> tuple[np.array, np.array, list, list, dict]:
     """
     return data from .mat files in tuple
 
@@ -27,8 +27,9 @@ def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: li
         pallete for colorizing  predicted image
     """
     img = io.loadmat(f'{dataset_path}/{img_name}')['image']
+    label_values = io.loadmat(f'{dataset_path}/{img_name}')['labels']
     if gt_name:
-        gt = io.loadmat(f'{dataset_path}/{gt_name}')["img"]
+        gt = io.loadmat(f'{dataset_path}/{gt_name}')["mask"]
     else:
         gt = None
     ignored_labels = [0]
@@ -37,4 +38,4 @@ def get_dataset(dataset_path: str, img_name: str, gt_name: str, label_values: li
     palette = {0: (0, 0, 0)}
     for k, color in enumerate(sns.color_palette("hls", len(label_values) - 1)):
         palette[k + 1] = tuple(np.asarray(255 * np.array(color), dtype="uint8"))
-    return img, gt, ignored_labels, palette
+    return img, gt, ignored_labels, label_values, palette

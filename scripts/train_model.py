@@ -19,12 +19,11 @@ def create_loader(img: np.array,
 def train_model(dataset_path: str,
                 img_name: str,
                 gt_name: str,
-                LABEL_VALUES: list,
                 hyperparams: dict,
                 sample_percentage: float = 0.5,
                 weights_path=None):
 
-    img, gt, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, LABEL_VALUES)
+    img, gt, IGNORED_LABELS, LABEL_VALUES, palette = get_dataset(dataset_path, img_name, gt_name)
     hyperparams['patch_size'] = 7
     hyperparams['batch_size'] = 40
     hyperparams['learning_rate'] = 0.01

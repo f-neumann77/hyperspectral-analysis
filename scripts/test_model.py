@@ -5,14 +5,13 @@ import torch
 import numpy as np
 
 def test_model(dataset_path: str,
-               LABEL_VALUES: list,
                hyperparams: dict,
                weights_path: str,
                img_name: str,
                gt_name: str=None,
                ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 
-    img, gt, IGNORED_LABELS, palette = get_dataset(dataset_path, img_name, gt_name, LABEL_VALUES)
+    img, gt, IGNORED_LABELS, LABEL_VALUES, palette = get_dataset(dataset_path, img_name, gt_name)
     hyperparams['patch_size'] = 7
     hyperparams['batch_size'] = 40
     hyperparams['n_classes'] = len(LABEL_VALUES)
