@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import tifffile as tiff
 from scipy.io import loadmat, savemat
@@ -188,6 +189,9 @@ class HSImage:
             MSI[:, :, k] = self.hsi[:, :, i]
 
         return MSI
+
+    def save_channel_as_png(self, path_to_png: str, num_channel: int, color_mode='gray'):
+        plt.imsave(path_to_png, self.get_channel(num_channel), cmap=color_mode)
 
     def get_hsi(self) -> np.array:
         """
