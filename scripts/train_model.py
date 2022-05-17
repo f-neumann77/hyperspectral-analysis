@@ -24,6 +24,7 @@ def train_model(dataset_path: str,
                 weights_path=None):
 
     img, gt, IGNORED_LABELS, LABEL_VALUES, palette = get_dataset(dataset_path, img_name, gt_name)
+
     hyperparams['patch_size'] = 7
     hyperparams['batch_size'] = 40
     hyperparams['learning_rate'] = 0.01

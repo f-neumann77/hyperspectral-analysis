@@ -32,10 +32,13 @@ def get_dataset(dataset_path: str, img_name: str, gt_name: str) -> tuple[np.arra
         gt = io.loadmat(f'{dataset_path}/{gt_name}')["mask"]
     else:
         gt = None
+
     ignored_labels = [0]
     img = np.asarray(img, dtype="float32")
     img = (img - np.min(img)) / (np.max(img) - np.min(img))
+
     palette = {0: (0, 0, 0)}
     for k, color in enumerate(sns.color_palette("hls", len(label_values) - 1)):
         palette[k + 1] = tuple(np.asarray(255 * np.array(color), dtype="uint8"))
+
     return img, gt, ignored_labels, label_values, palette

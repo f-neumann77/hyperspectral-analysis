@@ -26,7 +26,6 @@ def test_model(dataset_path: str,
 
     probabilities = test(model, img, hyperparams)
     prediction = np.argmax(probabilities, axis=-1)
-
     color_prediction = convert_to_color_(prediction, palette)
 
     return gt, prediction, color_prediction
