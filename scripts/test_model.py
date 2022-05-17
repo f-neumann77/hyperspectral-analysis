@@ -12,6 +12,7 @@ def test_model(dataset_path: str,
                ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
 
     img, gt, IGNORED_LABELS, LABEL_VALUES, palette = get_dataset(dataset_path, img_name, gt_name)
+
     hyperparams['patch_size'] = 7
     hyperparams['batch_size'] = 40
     hyperparams['n_classes'] = len(LABEL_VALUES)
