@@ -1,7 +1,6 @@
 import scipy.io as io
 import numpy as np
 import seaborn as sns
-from  HSI import HSImage
 
 def get_dataset(dataset_path: str, img_name: str, gt_name: str) -> tuple[np.array, np.array, list, list, dict]:
     """
