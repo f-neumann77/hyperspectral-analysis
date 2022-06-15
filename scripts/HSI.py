@@ -60,7 +60,8 @@ class HSImage:
                 temp = tiff.imread(path_to_norm)
                 self.coef = self._coef_norm(temp[:, 5, :])
 
-
+    def set_labels(self, labels):
+        self.labels = labels
     def _crop_layer(self, layer: np.array,
                     gap_coord=620,
                     range_to_spectrum=185,
