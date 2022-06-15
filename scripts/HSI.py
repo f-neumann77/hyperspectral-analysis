@@ -13,6 +13,9 @@ class HSImage:
         Hyperspectral Image in array format
     coef : np.array
         Coefficients matrix for normalizing input spectrum if slit has defects
+    labels : dict
+        Dictionary of classes in mask
+        i.e. {0: "void", 1: "background", 2: "class_1", 3: "class_2"}
     Methods
     ---------
     TODO write all methods
