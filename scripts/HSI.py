@@ -252,8 +252,10 @@ class HSImage:
             key for dictionary in mat file
         """
         # TODO Check values in raw images
-        savemat(path_to_file, {key: self.hsi.astype('int16'), 'labels': self.labels})
-
+        if self.labels:
+            savemat(path_to_file, {key: self.hsi.astype('int16'), 'labels': self.labels})
+        else:
+            savemat(path_to_file, {key: self.hsi.astype('int16')})
     def load_from_tiff(self, path_to_file: str):
         """
         Initializes hyperspectral image from tiff file
