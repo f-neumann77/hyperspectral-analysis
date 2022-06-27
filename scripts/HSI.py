@@ -235,9 +235,9 @@ class HSImage:
         Parameters
         ----------
         path_to_file : str
-            path to mat file with HSI
+            path to .mat file with HSI
         key : str
-            key for dictionary in mat file
+            key for dictionary in .mat file
         """
         self.hsi = loadmat(path_to_file)[key]
         try:
@@ -247,14 +247,17 @@ class HSImage:
 
     def save_to_mat(self, path_to_file: str, key: str):
         """
-        Saves hyperspectral image to mat file
+        Saves hyperspectral image to .mat file
         Parameters
         ----------
         path_to_file : str
-            path to mat file with HSI
+            path to .mat file with HSI
         key : str
-            key for dictionary in mat file
+            key for dictionary in .mat file
         """
+        if(not path_to_file.endswith('.mat')):
+            path_to_file += '.mat'
+
         # TODO Check values in raw images
         if self.labels:
             savemat(path_to_file, {key: self.hsi.astype('int16'), 'labels': self.labels})
@@ -262,11 +265,11 @@ class HSImage:
             savemat(path_to_file, {key: self.hsi.astype('int16')})
     def load_from_tiff(self, path_to_file: str):
         """
-        Initializes hyperspectral image from tiff file
+        Initializes hyperspectral image from .tiff file
         Parameters
         ----------
         path_to_file : str
-            path to tiff file with HSI
+            path to .tiff file with HSI
         """
         self.hsi = tiff.imread(path_to_file)
 
@@ -274,16 +277,21 @@ class HSImage:
         pass
 
     def load_from_npy(self, path_to_file: str):
-        pass
+        """
+        Initializes hyperspectral image from .npy file
+        Parameters
+        ----------
+        path_to_file : str
+            path to .npy file with HSI
+        """
+        self.hsi = np.load(path_to_file)
 
-    def save_to_npy(self):
-        pass
-
-    def yxz_to_xyz(self):
-        pass
-
-    def zxy_to_xyz(self):
-        pass
-
-    def xzy_to_xyz(self):
-        pass
+    def save_to_npy(self, path_to_file):
+        """
+        Saves hyperspectral image to .npy file
+        Parameters
+        ----------
+        path_to_file : str
+            path to .npy file with HSI
+        """
+        np.save(path_to_file, self.hsi)
