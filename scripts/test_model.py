@@ -1,5 +1,6 @@
 from scripts.dataset import get_dataset
-from scripts.newModel import get_model, test
+from scripts.Models.model import get_model
+from scripts.model_tvts import test
 from scripts.utils import convert_to_color_
 import torch
 import numpy as np

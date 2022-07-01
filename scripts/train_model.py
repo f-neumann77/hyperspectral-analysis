@@ -1,18 +1,18 @@
-from scripts.HyperX import HyperX
+from scripts.DataLoader import DataLoader
 from scripts.dataset import get_dataset
-from scripts.newModel import get_model, train
+from scripts.Models.model import get_model
+from scripts.model_tvts import train
 from scripts.utils import sample_gt
 import numpy as np
 import torch
 import torch.utils.data as data
 
-#from typing import List, Dict
 
 def create_loader(img: np.array,
                   gt: np.array,
                   hyperparams: dict,
                   shuffle: bool = False):
-    dataset = HyperX(img, gt, **hyperparams)
+    dataset = DataLoader(img, gt, **hyperparams)
     return data.DataLoader(dataset, batch_size=hyperparams["batch_size"], shuffle=shuffle)
 
 
@@ -30,6 +30,7 @@ def train_model(dataset_path: str,
     hyperparams['learning_rate'] = 0.01
     hyperparams['n_bands'] = img.shape[-1]
     hyperparams['ignored_labels'] = IGNORED_LABELS
+    hyperparams['net_name'] = 'he'
 
     model, optimizer, loss, hyperparams = get_model(hyperparams)
 
@@ -53,6 +54,5 @@ def train_model(dataset_path: str,
         hyperparams["epoch"],
         scheduler=hyperparams["scheduler"],
         device=hyperparams["device"],
-        supervision=hyperparams["supervision"],
         val_loader=val_loader,
     )
